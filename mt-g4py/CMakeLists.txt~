@@ -1,0 +1,93 @@
+#Edited by ZouLian
+
+# - Top-level CMakeLists.txt for MTGeant4Py
+
+cmake_minimum_required(VERSION 2.8)
+
+#------------------------------------------------------------------------------
+project(MTGeant4Py)
+#------------------------------------------------------------------------------
+# installation prefixes for libraries
+set(CMAKE_INSTALL_PREFIX ${PROJECT_BINARY_DIR}/ModuleInstall)
+
+
+set(MODULES_INSTALL_DIR ${CMAKE_INSTALL_PREFIX})
+
+# debug mode
+set(DEBUG FALSE CACHE BOOL "Debug Mode (Debug On)")
+
+
+# searching packages...
+find_package(Geant4 REQUIRED)
+find_package(PythonInterp REQUIRED)
+find_package(PythonLibs REQUIRED)
+find_package(Boost REQUIRED)
+find_package(XercesC)
+find_package(ROOT)
+
+
+#----------------------------------------------------------------------------
+# Setup Geant4 include directories and compile definitions
+# Setup include directory for this project
+# Setup Link directories
+
+
+
+include(${Geant4_USE_FILE})
+
+
+message( "Geant4_INCLUDE_DIRS: ${Geant4_INCLUDE_DIRS}")
+
+include_directories (
+  ${PYTHON_INCLUDE_PATH}
+  ${Boost_INCLUDE_DIR}
+  ${Geant4_INCLUDE_DIRS}
+)
+
+
+
+
+message(${Geant4_LIBRARIES})
+message(${Geant4_USE_FILE})
+
+message("Geant4 INCLUDE DIR:${GEANT4_INCLUDE_DIR} ")
+
+#link_directories (${GEANT4_LIBRARY_DIR} ${Boost_LIBRARY_DIRS})
+
+
+
+#------------------------------------------------------------------------------
+# parameters for building
+message(STATUS "--------------------------------------------------------")
+message(STATUS "Parameters for building")
+
+# build options
+if(NOT CMAKE_BUILD_TYPE)
+  if(DEBUG)
+    set(CMAKE_BUILD_TYPE "Debug")
+  else()
+    set(CMAKE_BUILD_TYPE "RelWithDebInfo")
+  endif()
+endif()
+message(STATUS "CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
+message(STATUS "CMAKE_CXX_COMPILER: ${CMAKE_CXX_COMPILER}")
+
+message(STATUS "CMAKE_INSTALL_PREFIX: ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "--------------------------------------------------------")
+
+#------------------------------------------------------------------------------
+# add subdiretories...
+
+# adding sub directories to the project
+# modules
+
+#add_subdirectory(water_phantom)
+#add_subdirectory(exampleB1)
+#add_subdirectory(TestEm0)
+
+
+
+
+
+
+

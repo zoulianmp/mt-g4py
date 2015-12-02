@@ -1,0 +1,47 @@
+# $Id: CMakeLists.txt 86065 2014-11-07 08:51:15Z gcosmo $
+
+#----------------------------------------------------------------------------
+# Setup the project
+cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
+project(exampleB1)
+
+
+file(GLOB _TARGETSrc  "${PROJECT_SOURCE_DIR}/module/*.cc")
+file(GLOB _PYFiles "*.py")
+
+message("the source files: ${_TARGETSrc}")
+message("the python files: ${_PYFiles}")
+
+
+
+
+#----------------------------------------------------------------------------
+# Setup Geant4 include directories and compile definitions
+# Setup include directory for this project
+# Setup Link directories
+
+
+# library
+set(_TARGET exampleB1)
+
+
+add_library(
+  ${_TARGET} SHARED
+  
+  ${_TARGETSrc}
+)
+
+message("Geant4_LIBRARIES, ${Geant4_LIBRARIES}")
+
+set_target_properties(${_TARGET} PROPERTIES PREFIX "")
+set_target_properties(${_TARGET} PROPERTIES OUTPUT_NAME ${_TARGET})
+set_target_properties(${_TARGET} PROPERTIES SUFFIX ".so")
+
+
+target_link_libraries (${_TARGET}
+                       ${Geant4_LIBRARIES} boost_python
+                       ${PYTHON_LIBRARIES})
+
+
+# install
+install(TARGETS ${_TARGET} LIBRARY DESTINATION ${MODULES_INSTALL_DIR})
